@@ -22,7 +22,7 @@ export const useThemeSwitcher = () => {
             localStorage.setItem("theme", theme)
         }
 
-    }, [theme]);
+    }, [theme, colorTheme]);
 
     return [colorTheme, setTheme] as const
 }

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 interface CountryProps {
     [key: string]: any 
@@ -12,9 +13,13 @@ const Country = ({country}: CountryProps) =>{
         <div className="bg-White dark:bg-dark-blue rounded-lg shadow-xl hover:scale-105 hover:transition hover:duration-700 ease-in-out">
             <Link href={`/details/${name.common}`} >
                 <div className="w-full h-[180px] rounded-t-lg">
-                        <img 
+                        <Image 
                             className="w-full h-full object-cover rounded-t-lg"   
-                            src={flags.svg} alt={'country flag'} />
+                            src={flags.svg} alt={'country flag'} 
+                            width={280}
+                            height={180}
+                            priority
+                        />
                 </div>
                 <div className="h-[180px] pl-5">
                     <p className="font-extrabold py-4">{name.common}</p>

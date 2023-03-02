@@ -1,4 +1,5 @@
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 interface CDProps {
     [key: string]: any 
@@ -31,7 +32,7 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
 
             <div className="w-full my-12 flex flex-col md:flex-row justify-center sm:justify-between items-center gap-9">
                 <div className="w-full md:w-2/5 h-[300px] sm:h-[350px] ">
-                    <img className="w-full h-full shadow-lg" src={svg} alt={alt}/>
+                    <Image className="w-full h-full shadow-lg" src={svg} alt={alt} width={300} height={350}/>
                 </div>
                 <div className="w-full md:w-[55%] xl:w-3/6 flex flex-col justify-center gap-8">
                     <p className="font-extrabold text-2xl">{common}</p>
