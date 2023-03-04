@@ -1,35 +1,17 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import axios from "axios";
 
-interface SFProps {
-    setCountries: Dispatch<SetStateAction<{data: never[]; loading: boolean; err: string}>>
+type SFProps = {
+    getCountriesByRegion: (region: string) => void
     setInputValue: Dispatch<SetStateAction<string>>
     inputValue: string
 }
 
-const SearchFilter = ({setCountries, inputValue, setInputValue}: SFProps) =>{
+const SearchFilter = ({ getCountriesByRegion, inputValue, setInputValue}: SFProps) =>{
     const [ isOpen, setIsOpen] = useState(false);
 
     //Function that handle filter region dropdown
     const dropDownHandler = () => {
         setIsOpen(!isOpen)
-    }
-
-    //Function that fetches countries based on region
-    const getCountriesByRegion = async (region: string) => {
-        try{
-            const res = await axios.get(`https://restcountries.com/v3.1/region/${region}`);
-            const data = await res.data; 
-    
-            dropDownHandler();
-            setCountries(prev => {
-            return  {...prev, data, err:''}
-            })
-        }catch(error){
-            setCountries(prev => {
-                return  {...prev, err: 'Something went wrong'}
-                })
-        }
     }
 
     return(
@@ -59,7 +41,11 @@ const SearchFilter = ({setCountries, inputValue, setInputValue}: SFProps) =>{
                 > 
                     {[['Africa'], ['Americas'], ['Asia'], ['Europe'], ['Oceania']].map(([region], index) => (
                         <ul key={index} className="w-fit h-fit my-3">
-                            <li onClick={() => getCountriesByRegion(region)} 
+                            <li 
+                                onClick={() => {
+                                    getCountriesByRegion(region)
+                                    dropDownHandler()
+                                }} 
                                 className="cursor-pointer"
                             >
                                 {region}

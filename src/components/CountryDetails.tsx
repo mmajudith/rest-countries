@@ -2,7 +2,19 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 
 interface CDProps {
-    [key: string]: any 
+    countryDetails:{
+        borders: []
+        capital?: [] 
+        currencies: {} 
+        common: string 
+        nativeName: {nld:{common: string}}
+        svg: string
+        languages: {}
+        population: number
+        region: string
+        subregion: string 
+        tld: []
+      }
 }
 
 type CurrencyType = {
@@ -12,10 +24,8 @@ type CurrencyType = {
 const CountryDetails = ( {countryDetails}: CDProps ) => {
     const router = useRouter();
 
-    const { borders, capital, currencies, flags,  languages, name, population, region, subregion, tld } = countryDetails[0];
-    const currencyName = Object.values(currencies)[0] as CurrencyType;
-    const { alt, svg } = flags;
-    const { common, nativeName } = name;
+    const { borders, capital, currencies,common, nativeName, svg,  languages, population, region, subregion, tld } = countryDetails;
+    const currencyName = currencies && Object.values(currencies || {})[0] as CurrencyType;
     const langs = Object.values(languages)
 
     return(
@@ -32,7 +42,7 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
 
             <div className="w-full my-12 flex flex-col md:flex-row justify-center sm:justify-between items-center gap-9">
                 <div className="w-full md:w-2/5 h-[300px] sm:h-[350px] ">
-                    <Image className="w-full h-full shadow-lg" src={svg} alt={alt} width={300} height={350}/>
+                    <Image className="w-full h-full shadow-lg" src={svg} alt={'country flag'} width={300} height={350}/>
                 </div>
                 <div className="w-full md:w-[55%] xl:w-3/6 flex flex-col justify-center gap-8">
                     <p className="font-extrabold text-2xl">{common}</p>
@@ -46,7 +56,7 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
                         </div>
                         <div className=""> 
                             <p className="font-medium pb-2 sm:pb-1">Top Level Domain:  <span className="font-light">{tld}</span></p>
-                            <p className="font-medium pb-2 sm:pb-1">Currencies:  <span className="font-light">{currencyName.name} </span></p>
+                            <p className="font-medium pb-2 sm:pb-1">Currencies:  <span className="font-light">{currencyName?.name} </span></p>
                             <p className="font-medium">Languages:  <span className="font-light">{Array.isArray(langs) && langs.join(', ')}</span></p>
                         </div>
                     </div>
