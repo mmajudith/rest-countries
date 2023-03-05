@@ -58,13 +58,14 @@ export const getStaticProps: GetStaticProps = async (context) =>{
   const countryBorders =  borders === undefined ? null : borders;
   const countryCapital = capital === undefined ? null: capital;
   const conCurrencies =  currencies === undefined ? null: currencies;
+  const conLanguages = languages === undefined ? null : languages;
   const conSubRegion = subregion === undefined ? null: subregion;
   const conTLD = tld === undefined ? null: tld;
   const conNativeName = nativeName === undefined ? null: nativeName;
 
   return {
     props: {
-      countryDetails: { countryBorders, countryCapital, conCurrencies, common, conNativeName, svg,  languages, population, region, conSubRegion, conTLD}
+      countryDetails: { countryBorders, countryCapital, conCurrencies, common, conNativeName, svg, conLanguages, population, region, conSubRegion, conTLD}
     }
   }
 }
