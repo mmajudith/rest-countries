@@ -22,8 +22,6 @@ interface DProps {
 
 const Details = ({countryDetails}: DProps) => {
 
-  // console.log(countryDetails, 'details');
-
   return (
     <>
       <Meta title={"Country Details"} description={"Country and their details"}/>

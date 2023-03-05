@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "jest": "jest"
   },
   "dependencies": {
     "@next/font": "13.1.6",
