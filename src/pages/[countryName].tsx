@@ -6,17 +6,17 @@ import CountryDetails from '@/components/CountryDetails';
 
 interface DProps {
   countryDetails:{
-    borders: []
-    capital?: [] 
-    currencies: {} 
+    countryBorders?: []
+    countryCapital?: []
+    conCurrencies?: {}
     common: string 
-    nativeName: {nld: {common: string} }
+    conNativeName?: {nld: {common: string} }
     svg: string
-    languages: {}
+    conLanguages?: {}
     population: number
     region: string
-    subregion: string 
-    tld: []
+    conSubRegion?: string 
+    conTLD?: []
   }
 }
 

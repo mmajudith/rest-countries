@@ -3,17 +3,17 @@ import Image from "next/image";
 
 interface CDProps {
     countryDetails:{
-        borders: []
-        capital?: [] 
-        currencies: {} 
+        countryBorders?: []
+        countryCapital?: []
+        conCurrencies?: {}
         common: string 
-        nativeName: {nld:{common: string}}
+        conNativeName?: {nld: {common: string} }
         svg: string
-        languages: {}
+        conLanguages?: {}
         population: number
         region: string
-        subregion: string 
-        tld: []
+        conSubRegion?: string 
+        conTLD?: []
       }
 }
 
@@ -24,9 +24,9 @@ type CurrencyType = {
 const CountryDetails = ( {countryDetails}: CDProps ) => {
     const router = useRouter();
 
-    const { borders, capital, currencies,common, nativeName, svg,  languages, population, region, subregion, tld } = countryDetails;
-    const currencyName = currencies && Object.values(currencies || {})[0] as CurrencyType;
-    const langs = Object.values(languages || {})
+    const { countryBorders, countryCapital, conCurrencies, common, conNativeName, svg,  conLanguages, population, region, conSubRegion, conTLD } = countryDetails;
+    const currencyName = Object.values(conCurrencies || {})[0] as CurrencyType;
+    const langs = Object.values(conLanguages || {})
 
     return(
         <div className="w-11/12 mx-auto my-8">
@@ -48,14 +48,14 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
                     <p className="font-extrabold text-2xl">{common}</p>
                     <div className="flex flex-col sm:flex-row justify-start sm:justify-between gap-8 sm:gap-5">
                         <div className=""> 
-                            <p className="font-medium pb-2 sm:pb-1">Native Name: <span  className="font-light">{nativeName?.nld?.common}</span></p>
+                            <p className="font-medium pb-2 sm:pb-1">Native Name: <span  className="font-light">{conNativeName?.nld?.common}</span></p>
                             <p className="font-medium pb-2 sm:pb-1">Populations: <span className="font-light">{population.toLocaleString()}</span></p>
                             <p className="font-medium pb-2 sm:pb-1">Region: <span className="font-light">{region}</span></p>
-                            <p className="font-medium pb-2 sm:pb-1">Sub Region: <span className="font-light">{subregion}</span></p>
-                            <p className="font-medium">Capital: <span className="font-light">{capital}</span></p>
+                            <p className="font-medium pb-2 sm:pb-1">Sub Region: <span className="font-light">{conSubRegion}</span></p>
+                            <p className="font-medium">Capital: <span className="font-light">{countryCapital}</span></p>
                         </div>
                         <div className=""> 
-                            <p className="font-medium pb-2 sm:pb-1">Top Level Domain:  <span className="font-light">{tld}</span></p>
+                            <p className="font-medium pb-2 sm:pb-1">Top Level Domain:  <span className="font-light">{conTLD}</span></p>
                             <p className="font-medium pb-2 sm:pb-1">Currencies:  <span className="font-light">{currencyName?.name} </span></p>
                             <p className="font-medium">Languages:  <span className="font-light">{Array.isArray(langs) && langs.join(', ')}</span></p>
                         </div>
@@ -64,7 +64,7 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
                     <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
                         <p className="font-medium mb-4 sm:mb-0">Border Countries: </p>
                         <div className="flex flex-wrap gap-3">
-                            {borders?.map((border: string, i: number) =>(
+                            {countryBorders?.map((border: string, i: number) =>(
                                 <ul key={i} className=''>
                                     <li className="flex flex-col justify-center items-center py-1 px-4 rounded bg-White dark:bg-dark-blue font-light shadow-lg text-sm cursor-auto">
                                         {border}
