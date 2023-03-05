@@ -17,7 +17,7 @@ const Country = ({ country }: CountryProps) =>{
     
     return(
         <div className="bg-White dark:bg-dark-blue rounded-lg shadow-xl hover:scale-105 hover:transition hover:duration-700 ease-in-out">
-            <Link href={`/details/${common}`} >
+            <Link href={`/${common}`} >
                 <div className="w-full h-[180px] rounded-t-lg">
                         <Image 
                             className="w-full h-full object-cover rounded-t-lg"   

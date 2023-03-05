@@ -34,6 +34,19 @@ const Details = ({countryDetails}: DProps) => {
 
 export default Details
 
+export const getStaticPaths = async () =>{
+  const res = await axios.get('https://restcountries.com/v3.1/all');
+  const countries = await res.data; 
+
+  const names = countries.map((country: any) => country.name.common);
+  const paths = names.map((name: string) => ({params: {countryName: name.toString() }}))
+
+  return {
+    paths,
+    fallback: false
+  }
+}
+
 export const getStaticProps: GetStaticProps = async (context) =>{
   const { countryName } = context.params!
 
@@ -51,18 +64,5 @@ export const getStaticProps: GetStaticProps = async (context) =>{
     props: {
       countryDetails: { countryBorders, countryCapital, conCurrencies, common, nativeName, svg,  languages, population, region, conSubRegion, tld}
     }
-  }
-}
-
-export const getStaticPaths = async () =>{
-  const res = await axios.get('https://restcountries.com/v3.1/all');
-  const countries = await res.data; 
-
-  const names = countries.map((country: any) => country.name.common);
-  const paths = names.map((name: string) => ({params: {countryName: name.toString() }}))
-
-  return {
-    paths,
-    fallback: false
   }
 }
