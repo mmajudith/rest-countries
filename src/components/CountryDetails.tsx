@@ -26,7 +26,7 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
 
     const { borders, capital, currencies,common, nativeName, svg,  languages, population, region, subregion, tld } = countryDetails;
     const currencyName = currencies && Object.values(currencies || {})[0] as CurrencyType;
-    const langs = Object.values(languages)
+    const langs = Object.values(languages || {})
 
     return(
         <div className="w-11/12 mx-auto my-8">
