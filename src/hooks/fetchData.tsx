@@ -9,7 +9,7 @@ export const fetchData = async (url: string) => {
     const { svg } = flags
     const { common } = name;
 
-    return { capital: country?.capital || null, svgFlags: svg, common, population, region };
+    return { capital: country?.capital || 'Nil', svgFlags: svg, common, population, region };
   })
 
   return countriesData

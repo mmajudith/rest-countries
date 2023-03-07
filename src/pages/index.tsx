@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { fetchData } from '@/hooks/fetchData';
 import Meta from '@/components/Meta';
+import SpinnerLoader from '@/components/SpinnerLoader';
 import SearchFilter from '@/components/SearchFilter';
 import Country from '@/components/Country';
 
 type HSProps = {
-    capital?:[]
+    capital?:[] | string
     svgFlags: string
     common: string
     population: number
@@ -58,7 +59,7 @@ export default function Home({countriesData}: HProps) {
         />
 
         {isLoading && (
-          <p className='mt-16 text-3xl'>Loading...</p>
+          <SpinnerLoader />
         )}
 
         <div className="w-[80%] sm:w-11/12 mx-auto mt-0 mb-12 sm:my-12 grid grid-cols-fluid gap-12">

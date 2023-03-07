@@ -3,7 +3,7 @@ import Image from "next/image"
 
 interface CountryProps {
     country:{
-        capital?:[]
+        capital?:[] | string
         svgFlags: string
         common: string
         population: number

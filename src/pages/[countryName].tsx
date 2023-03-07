@@ -6,17 +6,17 @@ import CountryDetails from '@/components/CountryDetails';
 
 interface DProps {
   countryDetails:{
-    countryBorders?: []
-    countryCapital?: []
-    conCurrencies?: {}
+    countryBorders?: [] | string
+    countryCapital?: [] | string
+    conCurrencies?: {} | string
     common: string 
-    conNativeName?: {nld: {common: string} }
+    conNativeName?: {nld: {common: string} } | string
     svg: string
-    conLanguages?: {}
+    conLanguages?: {} 
     population: number
     region: string
     conSubRegion?: string 
-    conTLD?: []
+    conTLD?: [] | string
   }
 }
 
@@ -52,16 +52,16 @@ export const getStaticProps: GetStaticProps = async (context) =>{
 
   const res = await axios.get(`https://restcountries.com/v3.1/name/${countryName}`);
   const country = await res.data; 
-  const { borders, capital, currencies, flags,  languages, name, population, region, subregion, tld } = country[0];
+  const { borders, capital, flags, name, population, region, subregion, tld } = country[0];
   const { svg } = flags;
-  const { common, nativeName } = name;
-  const countryBorders =  borders === undefined ? null : borders;
-  const countryCapital = capital === undefined ? null: capital;
-  const conCurrencies =  currencies === undefined ? null: currencies;
-  const conLanguages = languages === undefined ? null : languages;
-  const conSubRegion = subregion === undefined ? null: subregion;
-  const conTLD = tld === undefined ? null: tld;
-  const conNativeName = nativeName === undefined ? null: nativeName;
+  const { common } = name;
+  const countryBorders =  borders === undefined ? 'Nil' : borders;
+  const countryCapital = capital === undefined ? 'Nil': capital;
+  const conCurrencies =  country[0]?.currencies || 'Nil';
+  const conLanguages = country[0]?.languages || 'Nil';
+  const conSubRegion = subregion === undefined ? 'Nil': subregion;
+  const conTLD = tld === undefined ? 'Nil': tld;
+  const conNativeName = country[0]?.name?.nameNative || 'Nil';
 
   return {
     props: {

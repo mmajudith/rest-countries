@@ -3,17 +3,17 @@ import Image from "next/image";
 
 interface CDProps {
     countryDetails:{
-        countryBorders?: []
-        countryCapital?: []
-        conCurrencies?: {}
+        countryBorders?: [] | string
+        countryCapital?: [] | string
+        conCurrencies?: {} | string
         common: string 
-        conNativeName?: {nld: {common: string} }
+        conNativeName?: {nld: {common: string} } | string
         svg: string
-        conLanguages?: {}
+        conLanguages?: {} 
         population: number
         region: string
         conSubRegion?: string 
-        conTLD?: []
+        conTLD?: [] | string
       }
 }
 
@@ -25,8 +25,9 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
     const router = useRouter();
 
     const { countryBorders, countryCapital, conCurrencies, common, conNativeName, svg,  conLanguages, population, region, conSubRegion, conTLD } = countryDetails;
-    const currencyName = Object.values(conCurrencies || {})[0] as CurrencyType;
-    const langs = Object.values(conLanguages || {})
+    const currencyName = conCurrencies === 'Nil' ? conCurrencies : Object.values(conCurrencies || {})[0] as CurrencyType;
+    const langs = conLanguages === 'Nil' ? conLanguages : Object.values(conLanguages || {}).join(', ');
+    
 
     return(
         <div className="w-11/12 mx-auto my-8">
@@ -48,7 +49,7 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
                     <p className="font-extrabold text-2xl">{common}</p>
                     <div className="flex flex-col sm:flex-row justify-start sm:justify-between gap-8 sm:gap-5">
                         <div className=""> 
-                            <p className="font-medium pb-2 sm:pb-1">Native Name: <span  className="font-light">{conNativeName?.nld?.common}</span></p>
+                            <p className="font-medium pb-2 sm:pb-1">Native Name: <span  className="font-light">{typeof conNativeName === 'object' ? conNativeName?.nld?.common : conNativeName}</span></p>
                             <p className="font-medium pb-2 sm:pb-1">Populations: <span className="font-light">{population.toLocaleString()}</span></p>
                             <p className="font-medium pb-2 sm:pb-1">Region: <span className="font-light">{region}</span></p>
                             <p className="font-medium pb-2 sm:pb-1">Sub Region: <span className="font-light">{conSubRegion}</span></p>
@@ -56,21 +57,25 @@ const CountryDetails = ( {countryDetails}: CDProps ) => {
                         </div>
                         <div className=""> 
                             <p className="font-medium pb-2 sm:pb-1">Top Level Domain:  <span className="font-light">{conTLD}</span></p>
-                            <p className="font-medium pb-2 sm:pb-1">Currencies:  <span className="font-light">{currencyName?.name} </span></p>
-                            <p className="font-medium">Languages:  <span className="font-light">{Array.isArray(langs) && langs.join(', ')}</span></p>
+                            <p className="font-medium pb-2 sm:pb-1">Currencies:  <span className="font-light">{currencyName === 'Nil' ? currencyName : currencyName?.name} </span></p>
+                            <p className="font-medium">Languages:  <span className="font-light">{langs}</span></p>
                         </div>
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
                         <p className="font-medium mb-4 sm:mb-0">Border Countries: </p>
                         <div className="flex flex-wrap gap-3">
-                            {countryBorders?.map((border: string, i: number) =>(
+                            {Array.isArray(countryBorders) ? countryBorders?.map((border: string, i: number) =>(
                                 <ul key={i} className=''>
                                     <li className="flex flex-col justify-center items-center py-1 px-4 rounded bg-White dark:bg-dark-blue font-light shadow-lg text-sm cursor-auto">
                                         {border}
                                     </li>
                                 </ul>
-                            ))}
+                            )) : (
+                                <p className="font-light text-sm ">
+                                    {countryBorders}
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>
